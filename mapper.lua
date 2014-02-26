@@ -45,7 +45,8 @@ function enter_room()
 
 	local direction_moved = world.GetCommandList(1)[1]
 	
-	if((direction_moved == "n") or (direction_moved == "s") or (direction_moved == "e") or (direction_moved == "w")) then
+	if((direction_moved == "n") or (direction_moved == "s") or (direction_moved == "e") or (direction_moved == "w")) 
+		or (direction_moved == "nw") or (direction_moved == "ne") or (direction_moved == "sw") or (direction_moved == "se") then
 
 		local exit_string = world.GetLineInfo(world.GetLineCount(), 1)
 		local room_description = world.GetLineInfo(world.GetLineCount()-2, 1)
@@ -71,6 +72,14 @@ function inverse_direction(direction)
 		inverse_direction = "w"
 	elseif direction == "w" then
 		inverse_direction = "e"
+	elseif direction == "nw" then
+		inverse_direction = "se"
+	elseif direction == "ne" then
+		inverse_direction = "sw"
+	elseif direction == "sw" then
+		inverse_direction = "se"
+	elseif direction == "se" then
+		inverse_direction = "sw"
 	end
 	
 	return inverse_direction
@@ -81,11 +90,11 @@ function save_room (uid, direction_moved)
 	if last_known_room_id ~= nil then
 	
 		if room_list[uid] == nil then
-			room_list[uid] = {area = "x", exits = {n = -1, s = -1, e = -1, w = -1}}
+			room_list[uid] = {area = "x", exits = {n = -1, s = -1, e = -1, w = -1, nw = -1, ne = -1, sw = -1, se = -1}}
 		end
 	
 		if room_list[last_known_room_id] == nil then
-			room_list[last_known_room_id] = {area = "x", exits = {n = -1, s = -1, e = -1, w = -1}}
+			room_list[last_known_room_id] = {area = "x", exits = {n = -1, s = -1, e = -1, w = -1, nw = -1, ne = -1, sw = -1, se = -1}}
 		end
 		
 		room_list[uid]["exits"][inverse_direction(direction_moved)] = last_known_room_id
