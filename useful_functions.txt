@@ -1,0 +1,4 @@
+http://www.mushclient.com/scripts/function.php
+
+- GetLineCount
+- GetLineInfo

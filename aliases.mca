@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE muclient>
+<!-- Saved on Wednesday, February 26, 2014, 10:46 AM -->
+<!-- MuClient version 4.84 -->
+<!-- Written by Nick Gammon -->
+<!-- Home Page: http://www.mushclient.com/ -->
+<muclient>
+
+<!-- aliases -->
+
+<aliases
+   muclient_version="4.84"
+   world_file_version="15"
+   date_saved="2014-02-26 10:46:01"
+  >
+  <alias
+   script="move"
+   match="(n|s|e|w)"
+   enabled="y"
+   echo_alias="y"
+   group="movement"
+   regexp="y"
+   sequence="100"
+  >
+  </alias>
+</aliases>
+</muclient>
