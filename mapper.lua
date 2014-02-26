@@ -41,6 +41,10 @@ local my_config = {
   
   }
 
+function reset_map() {
+	room_list = {}
+}
+  
 function enter_room()
 
 	local direction_moved = world.GetCommandList(1)[1]
@@ -97,6 +101,8 @@ function save_room (uid, direction_moved)
 			room_list[last_known_room_id] = {area = "x", exits = {n = -1, s = -1, e = -1, w = -1, nw = -1, ne = -1, sw = -1, se = -1}}
 		end
 		
+		world.Note("entered " .. uid .. " from " .. inverse_direction(direction_moved) .. ". Last known room was " .. last_known_room_id)
+		
 		room_list[uid]["exits"][inverse_direction(direction_moved)] = last_known_room_id
 		room_list[last_known_room_id]["exits"][direction_moved] = uid
 	end
@@ -115,13 +121,27 @@ local function get_roomz0r (uid)
   room.hovermessage = uid   -- for hovering the mouse
 
   -- desired colours
-  room.bordercolour = ColourNameToRGB "lightseagreen"
+  room.bordercolour = ColourNameToRGB "green"
   room.borderpen = 0 -- solid
   room.borderpenwidth = 1
-  room.fillcolour = ColourNameToRGB "green"
+  room.fillcolour = ColourNameToRGB "red"
   room.fillbrush = 0 -- solid
 
   return room
+end
+
+function print_rooms()
+	for key,value in pairs(room_list) do
+		world.Note(key)
+		world.Note("\tn:" .. value["exits"]["n"])
+		world.Note("\ts:" .. value["exits"]["s"])
+		world.Note("\te:" .. value["exits"]["e"])
+		world.Note("\tw" .. value["exits"]["w"])
+		world.Note("\tne" .. value["exits"]["ne"])
+		world.Note("\tnw" .. value["exits"]["nw"])
+		world.Note("\tse" .. value["exits"]["se"])
+		world.Note("\tsw" .. value["exits"]["sw"])
+	end
 end
 
 mapper.init { config = my_config, get_room = get_roomz0r, show_help = OnHelp, room_click = room_click  } 
